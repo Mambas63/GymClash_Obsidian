@@ -12,3 +12,5 @@ Willkommen in der zentralen Projektdokumentation für unsere Diplomarbeit.
 * [[02_Architektur_&_Datenbank/|⚙️ Architektur & Datenbank]]: C#-Struktur, Schichten und SQL Server.
 * [[03_Lokales_Setup/|💻 Lokales Setup]]: Anleitungen für Entwicklungsumgebung und Git.
 * [[04_API-Dokumentation/|🔌 API-Dokumentation]]: Schnittstellen und Endpunkte.
+
+test
