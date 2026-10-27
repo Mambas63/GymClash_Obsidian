@@ -25,3 +25,56 @@ Entwicklung der plattformübergreifenden Charakter-Profilseite für GymClash mit
 
 
 
+
+## Sprint 2
+# Workout-Seite (TrainingPage)
+
+## Ziel (User Story)
+Als Nutzer möchte ich eine übersichtliche Trainings-Ansicht aufrufen können, auf der ich mein Workout starten und beenden kann, damit das System meine Trainingszeit und das Anti-Cheat-System aktivieren kann.
+
+## Betroffene Dateien
+| Datei | Zweck |
+|---|---|
+| `Views/TrainingPage.xaml` | Oberfläche (UI) der Workout-Seite |
+| `Views/TrainingPage.xaml.cs` | Logik (Code-Behind) |
+| `AppShell.xaml` | Tab „Workout“ in der Hauptnavigation (war bereits vorhanden) |
+
+## Umgesetzte Akzeptanzkriterien
+
+| Kriterium | Umsetzung |
+|---|---|
+| Tab in der Hauptnavigation | Tab „Workout“ in der `TabBar` der `AppShell` verweist auf `TrainingPage` |
+| Auffälliger Start-Button | Großer grüner Button „▶ Workout starten“ (Höhe 64). Beim Start wird er zum roten Button „■ Workout beenden“ |
+| Timer / Stoppuhr | Großes Label im Format `hh:mm:ss`. Ein `IDispatcherTimer` aktualisiert es jede Sekunde |
+| Übungen eingeben/auswählen | `Picker` mit 12 Standardübungen und ein `Entry` für eigene Übungen. Jede Übung lässt sich wieder entfernen |
+| Workout-Templates | Aktuelle Übungsliste kann mit Namen als Vorlage gespeichert, geladen und gelöscht werden |
+| Videos zu Übungen | Button 🎥 neben jeder Übung öffnet über den `Launcher` eine YouTube-Suche zur Übung |
+| Anti-Cheat-Platzhalter | Drei Statusanzeigen: 📶 WLAN, 📍 GPS, ✅ Legitimation. Sie zeigen „Inaktiv“ und wechseln während des Workouts auf „Prüfung läuft“ |
+
+## Technische Umsetzung
+
+### Oberfläche (XAML)
+- Aufbau aus `Border`-Karten in einem `ScrollView`, im gleichen Stil wie die anderen Seiten (Farben über `AppThemeBinding`, unterstützt Light/Dark-Mode).
+- Benannte Elemente (`x:Name`) wie `TimerLabel`, `StartStopButton`, `ExerciseList`, `TemplateList`. Der Code-Behind greift darüber auf sie zu.
+
+### Logik (C#)
+- **Workout starten/beenden:** `OnStartStopClicked` schaltet einen Zustand (`_running`) um. Beim Start werden Startzeit gespeichert, Timer gestartet und Anti-Cheat-Anzeige aktiviert. Beim Beenden werden Timer gestoppt, Dauer berechnet und in einem Dialog angezeigt.
+- **Timer:** `Dispatcher.CreateTimer()` mit 1 Sekunde Intervall. Angezeigt wird `DateTime.Now - _startedAt`, daher bleibt die Zeit auch bei Verzögerungen korrekt.
+- **Übungen:** Interne `List<string>`. `RefreshExercises()` baut die Anzeige nach jeder Änderung neu auf.
+- **Templates:** Interne Liste aus Name und Übungen. Beim Speichern wird eine Kopie der Übungsliste abgelegt, damit spätere Änderungen die Vorlage nicht verändern.
+- **Videos:** Der Suchbegriff wird mit `Uri.EscapeDataString` kodiert und im Browser geöffnet.
+- **Anti-Cheat:** `SetAntiCheat(bool)` ändert Text und Farbe der drei Status-Labels.
+
+## Aktuelle Einschränkungen
+- Übungen und Vorlagen liegen nur im Arbeitsspeicher und gehen beim App-Neustart verloren.
+- Die Anti-Cheat-Anzeige ist nur ein visueller Platzhalter. Die echten Prüfungen (WLAN, GPS, Legitimation) sind nicht implementiert.
+- Videos sind eine YouTube-Suche, keine eigenen eingebetteten Videos.
+
+## Mögliche nächste Schritte
+- Übungen, Vorlagen und abgeschlossene Workouts in der Datenbank speichern (`DatabaseConfig`).
+- Echte Anti-Cheat-Prüfungen anbinden (WLAN-Name, GPS-Standort, Legitimation).
+- Workout-Ende mit XP im RPG-System verbinden (`CharacterViewModel.Instance`).
+
+
+
+
