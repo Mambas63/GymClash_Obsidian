@@ -78,3 +78,60 @@ Als Nutzer möchte ich eine übersichtliche Trainings-Ansicht aufrufen können, 
 
 
 
+
+# App Branding (Icon und Splash Screen)
+
+## Ziel (Task)
+Als Entwickler möchte ich ein Platzhalter-Logo (oder das finale GymClash-Logo) als App-Icon für den Homescreen und als Splash Screen beim Laden der App hinterlegen.
+
+**Akzeptanzkriterien**
+- SVG-Dateien für App-Icon und Splash Screen sind im `Resources`-Ordner des MAUI-Projekts konfiguriert.
+- Die App startet auf dem Simulator (z. B. Pixel 7) mit dem GymClash-Logo.
+
+## Ausgangslage
+Das MAUI-Projekt enthält durch die Projektvorlage schon die Ordner und die Konfiguration für Icon und Splash, aber mit dem Standard-Logo (dotnet bot). Es musste also kein neuer Ordner angelegt werden, nur die Inhalte wurden ausgetauscht.
+
+## Betroffene Dateien
+| Datei | Änderung |
+|---|---|
+| `Resources/AppIcon/appicon.svg` | Enthält jetzt das GymClash-Logo |
+| `Resources/Splash/splash.svg` | Enthält jetzt das GymClash-Logo |
+| `Resources/AppIcon/appiconfg.svg` | Wird nicht mehr verwendet (früherer Vordergrund) |
+| `gymclash.csproj` | Icon und Splash zeigen auf die neuen SVGs, Hintergrundfarbe angepasst |
+
+## Das Logo
+- Motiv: goldenes Schwert, gekreuzt mit einer silbernen Hantel (RPG und Fitness).
+- Farben: Lila und Gold, passend zur App (Hintergrund `#3813BB`).
+- Das Bild wurde mit einem KI-Bildgenerator erstellt (1024 × 1024 px, quadratisch, ohne Text).
+- Für die Abnahme (SVG gefordert) wurde das Bild auf 512 × 512 px verkleinert und als PNG-Daten in eine SVG-Datei eingebettet.
+
+## Konfiguration in `gymclash.csproj`
+```xml
+<!-- App Icon -->
+<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#3813BB" />
+
+<!-- Splash Screen -->
+<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#3813BB" BaseSize="288,288" />
+```
+- `MauiIcon` erzeugt beim Build alle Icon-Größen für Android, iOS und Windows.
+- `MauiSplashScreen` erzeugt den Splash. `Color` ist die Hintergrundfarbe, `BaseSize` die Größe des Logos.
+- `Color` entspricht der Hintergrundfarbe des Bildes, damit am Rand keine Kanten sichtbar sind.
+
+## Testen
+1. Ziel „Android Emulator – Pixel 7“ wählen.
+2. *Projektmappe bereinigen*, dann *Neu erstellen* (sonst bleibt oft das alte Logo).
+3. Alte App vom Emulator deinstallieren (der Launcher cached das Icon).
+4. App starten: Der Splash mit Logo erscheint, danach die Login-Seite.
+
+## Einschränkungen
+- Das SVG ist eine Hülle um ein Rasterbild und kein echtes Vektorlogo. Bei großen Darstellungen kann es unscharf wirken.
+- Die Login-Seite (`LoginPage.xaml`) und die Startseite (`HomePage.xaml`) zeigen weiterhin eine lila Kachel mit dem Text „GC“. Das ist nicht das App-Icon und gehört nicht zu dieser Aufgabe.
+
+## Mögliche nächste Schritte
+- Echtes Vektor-Logo erstellen (z. B. in Inkscape oder Figma) und die SVG-Dateien ersetzen.
+- Das „GC“ auf Login- und Startseite durch das Logo ersetzen (`<Image Source="gymclash_logo.png" />`).
+- Das Schwert-Hantel-Logo als finales Branding festlegen und weitere Varianten (z. B. mit Schriftzug) vorbereiten.
+
+
+
+
