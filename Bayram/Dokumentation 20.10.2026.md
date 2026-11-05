@@ -131,3 +131,159 @@ User-Story ON-2 API-Endpunkt für den Login
 - **`LoginRequestDto`:** Kapselt die Parameter für die Login-Anfrage (`Email`, `Password`).
     
 - **`RegisterRequestDto`:** Kapselt die Registrierungsdaten (`Email`, `Password`, `Username`).
+
+
+Klasse: ==🔴**AuthService**==
+### I. Variablen & Felder der Klasse `AuthService`
+
+- **`AuthToken`**
+    
+    - **Sichtbarkeit:** `public static`
+        
+    - **Datentyp:** `string`
+        
+    - **Initialwert:** `string.Empty`
+        
+    - **Zweck:** Speichert das nach erfolgreichem Login empfangene Authentifizierungstoken (JWT) im flüchtigen Arbeitsspeicher des Clients, um nachfolgende autorisierte API-Anfragen zu authentifizieren.
+        
+- **`CurrentUserEmail`**
+    
+    - **Sichtbarkeit:** `public static`
+        
+    - **Datentyp:** `string`
+        
+    - **Initialwert:** `string.Empty`
+        
+    - **Zweck:** Hält die E-Mail-Adresse des aktuell angemeldeten Benutzers sitzungsweit vor. Sie dient als zentraler Identifikator für abhängige Dienste wie das Laden und Verarbeiten von Quests oder das Eintragen von Trainingsdaten.
+        
+- **`LastRegisteredEmail`**
+    
+    - **Sichtbarkeit:** `public static`
+        
+    - **Datentyp:** `string`
+        
+    - **Initialwert:** `string.Empty`
+        
+    - **Zweck:** Zwischenspeicher für die zuletzt erfolgreich registrierte oder angemeldete E-Mail-Adresse. Dient als Fallback, falls `CurrentUserEmail` kurzzeitig nicht gesetzt sein sollte.
+        
+- **`BaseApiUrl`**
+    
+    - **Sichtbarkeit:** `private static`
+        
+    - **Datentyp:** `string`
+        
+    - **Initialwert:** Ergebnis des Methodenaufrufs `GetBaseApiUrl()`
+        
+    - **Zweck:** Enthält die plattformabhängige Basis-URL der ASP.NET Core Web-API (z. B. Emulator-Loopback oder Localhost) als Präfix für sämtliche ausgehenden HTTP-Routen.
+        
+- **`httpClient`**
+    
+    - **Sichtbarkeit:** `private static`
+        
+    - **Datentyp:** `HttpClient`
+        
+    - **Initialwert:** `new HttpClient()`
+        
+    - **Zweck:** Wiederverwendbare Instanz des HTTP-Clients zur Durchführung asynchroner Netzwerkaufrufe (POST/GET) an das Backend, um Socket-Erschöpfung (Socket Exhaustion) zu verhindern.
+        
+
+### II. Methoden der Klasse `AuthService`
+
+#### 1. `GetBaseApiUrl()`
+
+- **Sichtbarkeit:** `private static`
+    
+- **Datentyp Rückgabewert:** `string`
+    
+- **Zweck:** Ermittelt dynamisch die netzwerktechnisch korrekte Basisadresse des Backend-Servers abhängig vom aktuellen Betriebssystem des Geräts.
+    
+- **Parameter:** Keine.
+    
+- **Rückgabewerte:**
+    
+    - `"[http://10.0.2.2:5052](http://10.0.2.2:5052)"`: Spezielle Alias-IP für das Android-Subsystem im Emulator, um den Host-Rechner über den konfigurierten Kestrel-Port zu erreichen.
+        
+    - `"http://localhost:5052"`: Für native Ausführungen (z. B. Windows Machine) oder Desktop-Builds.
+        
+- **Ablauf im Detail:**
+    
+    1. Prüft über `DeviceInfo.Platform`, ob die Anwendung unter Android läuft.
+        
+    2. Wählt anhand des Ergebnisses die passende Host-Adresse.
+        
+    3. Liefert den vollständigen Basis-URL-String inklusive Protokoll und Port zurück.
+        
+
+#### 2. `LoginAsync(string email, string password)`
+
+- **Sichtbarkeit:** `public static async`
+    
+- **Datentyp Rückgabewert:** `Task<AuthResult>`
+    
+- **Zweck:** Sendet die Anmeldedaten des Nutzers asynchron an den Backend-Endpunkt `/api/auth/login`, verarbeitet die Antwort und initialisiert die Benutzersitzung.
+    
+- **Parameter:**
+    
+    - `email` (`string`): Die vom Benutzer eingegebene E-Mail-Adresse.
+        
+    - `password` (`string`): Das zugehörige Passwort im Klartext.
+        
+- **Rückgabewerte:**
+    
+    - `AuthResult(true, "Willkommen zurück, ...")`: Bei Statuscode `200 OK`.
+        
+    - `AuthResult(false, ...)`: Bei unvollständigen Eingaben, abgewiesener Authentifizierung (`401 Unauthorized`), Serverfehlern oder Verbindungsunterbrechungen.
+        
+- **Ablauf im Detail:**
+    
+    1. Validiert vorab, ob `email` oder `password` leer sind, und bricht ggf. vor dem Netzwerkaufruf ab.
+        
+    2. Bereinigt Whitespaces mit `.Trim()`.
+        
+    3. Baut den JSON-String manuell zusammen und kapselt ihn in ein `StringContent`-Objekt mit UTF-8-Codierung und dem Header `application/json`.
+        
+    4. Sendet den POST-Request asynchron an `BaseApiUrl + "/api/auth/login"`.
+        
+    5. Wertet den zurückgegebenen HTTP-Statuscode aus:
+        
+        - **`200 OK`:** Parst den Antwort-Body via `JsonDocument`. Liest die Eigenschaft `"token"` aus und weist sie `AuthToken` zu. Weist `CurrentUserEmail` und `LastRegisteredEmail` die bereinigte E-Mail zu.
+            
+        - **`401 Unauthorized`:** Erzeugt ein negatives `AuthResult` mit Fehlermeldung bezüglich ungültiger Zugangsdaten.
+            
+        - **Sonstige Statuscodes:** Gibt ein negatives `AuthResult` mit Angabe des numerischen Statuscodes zurück.
+            
+    6. Fängt Exceptions per `try-catch` ab, loggt die Meldung über `Debug.WriteLine` und gibt ein negatives `AuthResult` mit der Fehlermeldung zurück.
+        
+
+#### 3. `Logout()`
+
+- **Sichtbarkeit:** `public static`
+    
+- **Datentyp Rückgabewert:** `void`
+    
+- **Zweck:** Beendet die aktive Benutzersitzung im Frontend und setzt sensible Sitzungsdaten zurück.
+    
+- **Parameter:** Keine.
+    
+- **Rückgabewerte:** Keine (`void`).
+    
+- **Ablauf im Detail:**
+    
+    1. Setzt die statische Variable `AuthToken` auf einen leeren String (`string.Empty`) zurück.
+        
+    2. Setzt `CurrentUserEmail` auf `string.Empty` zurück, damit nachfolgende Aktionen nicht mehr auf ein aktives Benutzerkonto zugreifen können.
+        
+
+### III. Hilfsklasse `AuthResult`
+
+- **Zweck:** Data Transfer Object (DTO) auf Clientseite zur einheitlichen Übermittlung von Erfolgs- und Statusmeldungen zwischen `AuthService` und den aufrufenden UI-Klassen bzw. ViewModels.
+    
+- **Eigenschaften:**
+    
+    - `Success` (`bool`): Zeigt an, ob die angeforderte Operation (z. B. Login) erfolgreich durchgeführt wurde.
+        
+    - `Message` (`string`): Enthält den Benutzer-Hinweistext zur Anzeige in Alert-Dialogen oder UI-Labels.
+        
+- **Konstruktor:**
+    
+    - `AuthResult(bool success, string message)`: Initialisiert die Instanz direkt mit den beiden erforderlichen Statuswerten.
