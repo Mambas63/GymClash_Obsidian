@@ -11,14 +11,12 @@
             "id": "2cdce4e89bc0f1e9",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "Templates/Doku.md",
-                "mode": "source",
-                "source": false
+                "file": "Pasted image 20261104094349.png"
               },
-              "icon": "lucide-file",
-              "title": "Doku"
+              "icon": "lucide-image",
+              "title": "Pasted image 20261104094349"
             }
           }
         ]
@@ -192,18 +190,30 @@
   },
   "active": "2cdce4e89bc0f1e9",
   "lastOpenFiles": [
+    "Werner/Dokumentation.md",
+    "Pasted image 20261104094330.png",
+    "Pasted image 20261104093133.png",
+    "README.md",
     "Vasic/Dokumentation.md",
     "Templates/Doku.md",
+    "Hristov/Dokumentation.md",
+    "01_Meeting-Protokolle/ersten meeting test.md",
+    "00_Dashboard/Startseite.md..md",
+    "Bayram/Dokumentation 20.10.2026.md",
+    "Bayram/Unbenannt.md",
+    "Pasted image 20261104094349.png",
+    "Pasted image 20261104093921.png",
+    "Pasted image 20261104093151.png",
+    "Pasted image 20261104094535.png",
+    "Pasted image 20261104094507.png",
+    "Pasted image 20261104094411.png",
+    "Pasted image 20261104094200.png",
+    "Pasted image 20261104093106.png",
     "Templates",
     "Template/Unbenannt.md",
     "Template/Unbenannt",
     "Template",
-    "Hristov/Dokumentation.md",
-    "Werner/Dokumentation.md",
     "Bayram/Dokumentation.md",
-    "00_Dashboard/Startseite.md..md",
-    "01_Meeting-Protokolle/ersten meeting test.md",
-    "README.md",
     "01_Meeting-Protokolle.md",
     "App-Spezifikation.md",
     "04_API-Dokumentation",
