@@ -2,7 +2,7 @@
 tags: [gymclash, maui, sprint-review, bugfix, mvvm]
 date: 2026-10-19
 ---
-## Sprint1
+P## Sprint1
 ## User Story: ON-6 - RPG Profil & Level-System
 
 ## 🎯 Ziel
