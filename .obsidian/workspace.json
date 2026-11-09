@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "Werner/Dokumentation.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "README"
+              "title": "Dokumentation"
             }
           }
         ]
@@ -190,5 +190,21 @@
     }
   },
   "active": "dcd74ce961e7f5c2",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "01_Meeting-Protokolle/Sprint01_Review.md",
+    "01_Meeting-Protokolle/ersten meeting test.md",
+    "00_Dashboard/Startseite.md..md",
+    "Werner/Dokumentation.md",
+    "Vasic/Dokumentation.md",
+    "README.md",
+    "Werner",
+    "Vasic",
+    "Hristov/Dokumentation.md",
+    "Hristov",
+    "Bayram/Dokumentation.md",
+    "Bayram",
+    "01_Meeting-Protokolle",
+    "00_Dashboard",
+    "file:/Users/williampegg/dev/repos/2026-5BHITN/assignments/2026-10-09-cycle-01-fundament/US-002.md"
+  ]
 }
