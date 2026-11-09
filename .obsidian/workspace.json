@@ -1,76 +1,41 @@
 {
   "main": {
-    "id": "9df7860fb507473f",
+    "id": "756b9ff4d4d1419a",
     "type": "split",
     "children": [
       {
-        "id": "83aa695095f859c5",
+        "id": "359e1a9cb27e872c",
         "type": "tabs",
         "children": [
           {
-            "id": "dcd74ce961e7f5c2",
+            "id": "2cdce4e89bc0f1e9",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "Bayram/Images/Pasted image 20261104093106.png"
+                "file": "Vasic/Unbenannt.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-image",
-              "title": "Pasted image 20261104093106"
-            }
-          },
-          {
-            "id": "fe28a3df50f09908",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "Bayram/Images/Pasted image 20261104093133.png"
-              },
-              "icon": "lucide-image",
-              "title": "Pasted image 20261104093133"
-            }
-          },
-          {
-            "id": "ab86ed5612e017b0",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "Bayram/Images/Pasted image 20261104093151.png"
-              },
-              "icon": "lucide-image",
-              "title": "Pasted image 20261104093151"
-            }
-          },
-          {
-            "id": "5109444f71bb1059",
-            "type": "leaf",
-            "state": {
-              "type": "image",
-              "state": {
-                "file": "Bayram/Images/Pasted image 20261104093921.png"
-              },
-              "icon": "lucide-image",
-              "title": "Pasted image 20261104093921"
+              "icon": "lucide-file",
+              "title": "Unbenannt"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "cbecee99f42779c5",
+    "id": "f37920432b8e85a8",
     "type": "split",
     "children": [
       {
-        "id": "2c4b4de473e10e00",
+        "id": "ea74982e914224d0",
         "type": "tabs",
         "children": [
           {
-            "id": "668b7ff2ab26dd80",
+            "id": "17bc43142868b5e3",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -81,11 +46,11 @@
                 "searchQuery": ""
               },
               "icon": "lucide-folder-closed",
-              "title": "Files"
+              "title": "Dateiexplorer"
             }
           },
           {
-            "id": "f19f936fb693c523",
+            "id": "62b56246fd48551c",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -98,11 +63,11 @@
                 "sortOrder": "alphabetical"
               },
               "icon": "lucide-search",
-              "title": "Search"
+              "title": "Suchen"
             }
           },
           {
-            "id": "703165390c4a0f83",
+            "id": "f07104c3a7f96565",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -111,30 +76,30 @@
                 "searchQuery": ""
               },
               "icon": "lucide-bookmark",
-              "title": "Bookmarks"
+              "title": "Lesezeichen"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 248.5
   },
   "right": {
-    "id": "ca245aef9e37201d",
+    "id": "4645d95c14d563f3",
     "type": "split",
     "children": [
       {
-        "id": "6d9e901df9cfbc75",
+        "id": "9580005394239084",
         "type": "tabs",
         "children": [
           {
-            "id": "49bd2a346a75144a",
+            "id": "8b7ab4600deabe67",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
-                "file": "README.md",
+                "file": "00_Dashboard/Startseite.md..md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -144,25 +109,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Rückverweise"
             }
           },
           {
-            "id": "1ec6f547a74464b1",
+            "id": "ed63ff69d51a3b55",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "README.md",
+                "file": "00_Dashboard/Startseite.md..md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links"
+              "title": "Ausgehende Links"
             }
           },
           {
-            "id": "3acf67b0abf18d06",
+            "id": "25c68d99de4fd493",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -177,7 +142,7 @@
             }
           },
           {
-            "id": "ac7cbcc0ca4dd27f",
+            "id": "786b57a9d19be90e",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -187,22 +152,22 @@
                 "searchQuery": ""
               },
               "icon": "lucide-archive",
-              "title": "All properties"
+              "title": "Alle Eigenschaften"
             }
           },
           {
-            "id": "96bfd567551996e3",
+            "id": "988d89334afbdf62",
             "type": "leaf",
             "state": {
               "type": "outline",
               "state": {
-                "file": "README.md",
+                "file": "00_Dashboard/Startseite.md..md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
+              "title": "Gliederung"
             }
           }
         ]
@@ -214,48 +179,55 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "switcher:Schnellauswahl öffnen": false,
+      "graph:Graph-Ansicht öffnen": false,
+      "canvas:Neuen Canvas erstellen": false,
+      "daily-notes:Heutige Notiz öffnen": false,
+      "templates:Vorlage einfügen": false,
+      "command-palette:Befehlspalette öffnen": false,
+      "bases:Neue Base erstellen": false,
       "obsidian-git:Open Git source control": false,
-      "switcher:Open quick switcher": false,
-      "graph:Open graph view": false,
-      "canvas:Create new canvas": false,
-      "daily-notes:Open today's daily note": false,
-      "templates:Insert template": false,
-      "command-palette:Open command palette": false,
-      "bases:Create new base": false
+      "templater-obsidian:Templater": false
     }
   },
-  "active": "668b7ff2ab26dd80",
+  "active": "2cdce4e89bc0f1e9",
   "lastOpenFiles": [
+    "Vasic/Dokumentation.md",
+    "Vasic/Unbenannt.md",
+    "Templates/DokuTemplate.md",
+    "Bayram/Images/Pasted image 20261104094535.png",
+    "Bayram/Images/Pasted image 20261104094507.png",
+    "Bayram/Images/Pasted image 20261104093921.png",
     "Bayram/Images/Pasted image 20261104093151.png",
+    "Bayram/Images/Pasted image 20261104094411.png",
+    "Bayram/Images/Pasted image 20261104094349.png",
+    "Bayram/Images/Pasted image 20261104094330.png",
+    "Bayram/Images/Pasted image 20261104094200.png",
     "Bayram/Images/Pasted image 20261104093133.png",
     "Bayram/Images/Pasted image 20261104093106.png",
     "Bayram/Images",
-    "Bayram/Images/Pasted image 20261104093921.png",
-    "Bayram/Images/Pasted image 20261104094330.png",
-    "Bayram/Images/Pasted image 20261104094349.png",
-    "Bayram/Images/Pasted image 20261104094411.png",
-    "Bayram/Images/Pasted image 20261104094507.png",
-    "Bayram/Images/Pasted image 20261104094535.png",
-    "Werner/Dokumentation.md",
-    "Templates/DokuTemplate.md",
-    "Templates/Doku.md",
-    "Templates",
-    "Bayram/Images/Pasted image 20261104094200.png",
-    "Bayram/Unbenannt.md",
-    "Bayram/Dokumentation 20.10.2026.md",
     "01_Meeting-Protokolle/Sprint01_Review.md",
+    "Templates/Doku.md",
+    "Werner/Dokumentation.md",
+    "README.md",
+    "Hristov/Dokumentation.md",
     "01_Meeting-Protokolle/ersten meeting test.md",
     "00_Dashboard/Startseite.md..md",
-    "Vasic/Dokumentation.md",
-    "README.md",
-    "Werner",
-    "Vasic",
-    "Hristov/Dokumentation.md",
-    "Hristov",
+    "Bayram/Dokumentation 20.10.2026.md",
+    "Bayram/Unbenannt.md",
+    "Templates",
+    "Template/Unbenannt.md",
+    "Template/Unbenannt",
+    "Template",
     "Bayram/Dokumentation.md",
-    "Bayram",
+    "01_Meeting-Protokolle.md",
+    "App-Spezifikation.md",
+    "04_API-Dokumentation",
+    "03_Lokales_Setup",
+    "02_Architektur_&_Datenbank",
     "01_Meeting-Protokolle",
     "00_Dashboard",
-    "file:/Users/williampegg/dev/repos/2026-5BHITN/assignments/2026-10-09-cycle-01-fundament/US-002.md"
+    "Bayram",
+    "Unbenannt.md"
   ]
 }
