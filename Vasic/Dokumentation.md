@@ -132,6 +132,68 @@ Das MAUI-Projekt enthält durch die Projektvorlage schon die Ordner und die Konf
 - Das „GC“ auf Login- und Startseite durch das Logo ersetzen (`<Image Source="gymclash_logo.png" />`).
 - Das Schwert-Hantel-Logo als finales Branding festlegen und weitere Varianten (z. B. mit Schriftzug) vorbereiten.
 
+## Sprint 3
+
+# Studio-Overlay auf der Battle Map
+
+## Ziel (User Story)
+Als Nutzer möchte ich nach dem Klick auf ein Studio auf der „Battle Map“ ein Overlay mit Detailinformationen sehen, damit ich checken kann, wie lange die „Golden Hour“ dort noch aktiv ist und ob sich der Weg dorthin für den XP-Boost lohnt.
+
+## Akzeptanzkriterien und Umsetzung
+
+| Kriterium | Umsetzung |
+|---|---|
+| Modales Overlay / Bottom Sheet bei Auswahl eines Studios | `StudioOverlay`: abgedunkelter Hintergrund, Sheet am unteren Rand. Öffnet beim Tippen auf einen Studio-Marker. Tippen auf den dunklen Bereich schließt es |
+| Name, Platzhalter-Bild, ungefähre Entfernung | Name und Entfernung als Labels („0,8 km entfernt“). Als Bild-Platzhalter dient ein Emoji in einem farbigen Kasten |
+| Prominenter Timer („Noch 45 Min.“) | Großes Label (Schriftgröße 34) mit Fortschrittsbalken. Aktualisierung jede Sekunde. Unter einer Minute werden Sekunden angezeigt, danach „Beendet“ |
+| Button am unteren Rand | „Route planen“ (öffnet Google Maps) und „Schließen“ am Ende des Sheets |
+| Relevante Informationen | Boost in Prozent (z. B. „+50 % XP“) und eine Hinweiszeile „Lohnt sich“ oder „Knapp“ |
+
+## Betroffene Dateien
+| Datei | Änderung |
+|---|---|
+| `Views/MapPage.xaml` | Karte in ein `Grid` gelegt, darüber das Overlay (anfangs unsichtbar) |
+| `Views/MapPage.xaml.cs` | Karte, Marker, Overlay-Logik, Timer |
+| `Views/HomePage.xaml(.cs)` | Knoten der Battle-Map-Vorschau führen jetzt zur Karte |
+| `google-maps-api-key.txt` | Platzhalter-Datei, damit der Android-Build läuft (siehe unten) |
+
+## Technische Umsetzung
+
+### Karte (Mapsui 5.1)
+- Die Seite hatte nur ein leeres `MapControl`. Deshalb war die Karte weiß.
+- Jetzt: OpenStreetMap-Kacheln als Hintergrund (`OpenStreetMap.CreateTileLayer()`), Startausschnitt in Wien (`CenterOnAndZoomTo`).
+- Studios sind Punkte (`PointFeature`) in einem `MemoryLayer` und werden als farbige Kreise (`SymbolStyle`) dargestellt.
+- Beim Tippen liefert `e.GetMapInfo(layer).Feature` den getroffenen Marker. Über das Feld `Index` wird das passende Studio geöffnet.
+
+### Overlay und Timer
+- Die Studio-Daten stehen in einem `record Studio` (Name, Entfernung, Boost, Dauer der Golden Hour, Koordinaten). Sie sind Platzhalter.
+- Beim Öffnen wird das Ende der Golden Hour als `DateTime.Now + Restminuten` gesetzt. Ein `IDispatcherTimer` aktualisiert die Anzeige jede Sekunde und stoppt beim Schließen.
+- „Lohnt sich“: Gehzeit = Entfernung / 5 km/h. Ist sie kürzer als die Restzeit, erscheint „Lohnt sich“, sonst „Knapp“.
+- „Route planen“ öffnet `https://www.google.com/maps/dir/?api=1&destination=<lat>,<lon>` über den `Launcher`.
+
+## Entscheidung: Overlay nur auf der Karte
+Zuerst gab es das Overlay doppelt (Startseite und Karte). Das war doppelter Code und schwer zu pflegen. Jetzt gibt es es nur noch auf der Karte. Die Knoten der Vorschau auf der Startseite öffnen die Karte.
+
+## Fehlersuche: 41 Fehler beim Start
+- **Symptom:** In der Fehlerliste standen 41 Fehler für `net10.0-android` („Mapsui nicht gefunden“, „InitializeComponent nicht vorhanden“ und andere).
+- **Ursache:** Die `.csproj` prüft vor dem Android-Build, ob ein Google-Maps-Key vorhanden ist (`google-maps-api-key.txt`). Fehlt er, bricht der Build ab, und alle übrigen Fehler sind Folgefehler.
+- **Lösung:** Die Datei `google-maps-api-key.txt` im Projektordner anlegen (Platzhaltertext reicht). Die Karte selbst nutzt Mapsui mit OpenStreetMap und braucht keinen Google-Key.
+- **Datei-Konzept:** `google-maps-api-key.example.txt` ist die Vorlage im Repository. `google-maps-api-key.txt` ist die lokale Datei und steht in der `.gitignore`, sie wird nicht committet.
+- **Warum nicht im Backend:** Der Key wird beim Build in das `AndroidManifest.xml` der App geschrieben. Die `.csproj` liest ihn aus dem Projektordner.
+
+## Aktuelle Einschränkungen
+- Studios, Entfernung, Boost und Restzeit sind Platzhalter. Die Entfernung kommt nicht vom echten Standort.
+- Der Timer startet bei jedem Öffnen eines Studios neu. Eine feste, durchgehende Golden Hour gibt es nicht.
+- Die Knoten auf der Startseite öffnen nur die Karte. Das passende Studio öffnet sich dort nicht automatisch.
+- Das Overlay wurde im Code geprüft (Build), aber noch nicht auf dem Gerät getestet.
+- Für den Build fehlt lokal die Datei `database/config.json` (Fehler MSB3030). Das hat nichts mit der Story zu tun.
+- OpenStreetMap verlangt bei einer Veröffentlichung einen Quellenhinweis („© OpenStreetMap“).
+
+## Mögliche nächste Schritte
+- Echte Studiodaten aus der Datenbank und echte Entfernung per GPS.
+- Golden Hour mit festem Start und Ende pro Studio statt Timer ab dem Öffnen.
+- Beim Tippen auf die Startseite direkt das gewählte Studio auf der Karte öffnen.
+- Overlay als wiederverwendbares Element (`ContentView`) auslagern.
 
 
 
